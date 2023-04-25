@@ -2,7 +2,7 @@ package com.example.proyectocatedramenudsm
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ListView
+import android.widget.GridView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectocatedramenudsm.adaptadores.AdaptadorProducto
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     var consultaOrdenada: Query = refProductos.orderByChild("Descripcion")
     var productos: MutableList<Producto>? = null
-    var listaProductos: ListView? = null
+    var listaProductos: GridView? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun inicializar() {
-        listaProductos = findViewById<ListView>(R.id.ListaProductos)
+        listaProductos = findViewById<GridView>(R.id.ListaProductos)
 
         productos = ArrayList<Producto>()
 
