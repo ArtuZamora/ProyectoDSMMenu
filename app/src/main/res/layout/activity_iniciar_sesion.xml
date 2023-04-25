@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/llnav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
+
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="38dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/arrow_back"
+            android:layout_marginEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Iniciar sesión"
+            android:textColor="@color/orange"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rluser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rlcontra"
+        android:layout_marginBottom="0dp"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/my_hint_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/etUsuario"
+            android:padding="5dp"
+            android:text="Usuario"
+            android:textColor="@color/orange"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etUsuario"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/recuperarContra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnIniciarSesion"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="191dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="41dp"
+        android:clickable="true"
+        android:cursorVisible="true"
+        android:text="¿Olvidó su contraseña?"
+        android:textColor="@color/orange" />
+
+    <RelativeLayout
+        android:id="@+id/rlcontra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="457dp"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/my_hint_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/etContra"
+            android:layout_alignParentTop="true"
+            android:padding="5dp"
+            android:text="Contraseña"
+            android:textColor="@color/orange"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etContra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+                android:textSize="15sp"
+            android:inputType="textPassword" />
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="76dp"
+        android:layout_height="98dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="170dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginBottom="336dp"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btnIniciarSesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="125dp"
+        android:layout_marginEnd="136dp"
+        android:layout_marginBottom="303dp"
+        android:padding="16dp"
+        android:text="Iniciar sesión" />
+
+
+</RelativeLayout>
