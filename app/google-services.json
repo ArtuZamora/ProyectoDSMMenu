@@ -15,17 +15,21 @@
       },
       "oauth_client": [
         {
-          "client_id": "358499365041-7dv71786temrccmp2e71f9rsblkcd7qg.apps.googleusercontent.com",
-          "client_type": 3,
+          "client_id": "358499365041-djfhtrdsh4q6uk8cmfomqel4g52sp2s5.apps.googleusercontent.com",
+          "client_type": 1,
           "android_info": {
             "package_name": "com.example.proyectocatedramenudsm",
-            "certificate_hash": "b876676e5555590005da276c5eee805e54f003c4"
+            "certificate_hash": "ed7a8e2ed937a8d107b0e8a9066c9291af491169"
           }
+        },
+        {
+          "client_id": "358499365041-ersbkb13f30uv1f1iatp0jqie3pqn68l.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyANC0VcUcJkKRiBVtF3cfYSX_QYEgPH3w8"
+          "current_key": "AIzaSyBg8lnmkkiWiTNfaaRepXYCLcIgX8PpMPQ"
         }
       ],
       "services": {
