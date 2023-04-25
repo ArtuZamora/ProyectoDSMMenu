@@ -1,29 +1,26 @@
 {
   "project_info": {
-    "project_number": "356003659796",
-    "project_id": "proyecto-dsm-34fd6",
-    "storage_bucket": "proyecto-dsm-34fd6.appspot.com"
+    "project_number": "358499365041",
+    "firebase_url": "https://dsm-proyect-e4b3e-default-rtdb.firebaseio.com",
+    "project_id": "dsm-proyect-e4b3e",
+    "storage_bucket": "dsm-proyect-e4b3e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:356003659796:android:ef49966dcbe856abdca701",
+        "mobilesdk_app_id": "1:358499365041:android:7a9541dc1762668425f290",
         "android_client_info": {
           "package_name": "com.example.proyectocatedramenudsm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "356003659796-av6bad4s8qmodum16ibemg7q413pmrh6.apps.googleusercontent.com",
-          "client_type": 1,
+          "client_id": "358499365041-7dv71786temrccmp2e71f9rsblkcd7qg.apps.googleusercontent.com",
+          "client_type": 3,
           "android_info": {
             "package_name": "com.example.proyectocatedramenudsm",
             "certificate_hash": "b876676e5555590005da276c5eee805e54f003c4"
           }
-        },
-        {
-          "client_id": "356003659796-qj5k9s06jpgsvvh2b93a1aol5rinhn2l.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -35,7 +32,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "356003659796-cedv6dli18k9v29ehrjgcr080s85judt.apps.googleusercontent.com",
+              "client_id": "358499365041-7dv71786temrccmp2e71f9rsblkcd7qg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
