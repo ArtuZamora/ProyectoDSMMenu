@@ -1,14 +1,19 @@
 package com.example.proyectocatedramenudsm
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.GridView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.proyectocatedramenudsm.adaptadores.AdaptadorProducto
 import com.example.proyectocatedramenudsm.modelos.Producto
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.database.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
+import com.google.firebase.database.ValueEventListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,12 +21,29 @@ class MainActivity : AppCompatActivity() {
     var productos: MutableList<Producto>? = null
     var listaProductos: GridView? = null
 
+    private lateinit var cerrarSesionBtn: ImageView
+    private lateinit var recordatorioBtn: ImageView
+    private lateinit var buscarBtn: ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        inicializarUI()
         inicializar()
 
+        cerrarSesionBtn.setOnClickListener{
+            FirebaseAuth.getInstance().signOut().also {
+                val intent = Intent(this, RegistrarseActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
+        }
+        recordatorioBtn.setOnClickListener{
+            val intent = Intent(this, RecordatorioActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun inicializar() {
@@ -55,6 +77,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun inicializarUI(){
+        cerrarSesionBtn = findViewById(R.id.cerrarSesionBtn)
+        recordatorioBtn = findViewById(R.id.usuarioBtn)
+        buscarBtn = findViewById(R.id.buscarBtn)
+    }
     companion object {
         var database: FirebaseDatabase = FirebaseDatabase.getInstance()
         var refProductos: DatabaseReference = database.getReference("Menu")

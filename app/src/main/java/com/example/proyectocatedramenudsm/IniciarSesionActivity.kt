@@ -22,6 +22,8 @@ class IniciarSesionActivity : AppCompatActivity() {
     private var progressBar: ProgressBar? = null
     private var mAuth: FirebaseAuth? = null
 
+    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -31,6 +33,8 @@ class IniciarSesionActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
 
         mAuth = FirebaseAuth.getInstance()
+        this.checkUser()
+
         initializeUI()
         loginBtn!!.setOnClickListener{
             loginUserAccount()
@@ -89,5 +93,22 @@ class IniciarSesionActivity : AppCompatActivity() {
         recoverBtn=findViewById(R.id.recuperarContra)
         backBtn=findViewById(R.id.backButton)
 
+    }
+
+    override fun onResume(){
+        super.onResume()
+        mAuth!!.addAuthStateListener(authStateListener)
+    }
+    override fun onPause(){
+        super.onPause()
+        mAuth!!.removeAuthStateListener(authStateListener)
+    }
+    private fun checkUser(){
+        authStateListener = FirebaseAuth.AuthStateListener { auth ->
+            if(auth.currentUser != null){
+                val intent = Intent(this@IniciarSesionActivity, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 }

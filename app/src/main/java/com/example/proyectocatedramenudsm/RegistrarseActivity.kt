@@ -35,6 +35,8 @@ class RegistrarseActivity : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
     private lateinit var googleSignInClient: GoogleSignInClient
 
+    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -44,6 +46,7 @@ class RegistrarseActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
 
         mAuth= FirebaseAuth.getInstance()
+        this.checkUser()
         initializeUI()
 
 
@@ -154,6 +157,21 @@ class RegistrarseActivity : AppCompatActivity() {
         googlebtn =findViewById(R.id.googlebtn)
         progressBar = findViewById(R.id.progressBar)
     }
-
+    override fun onResume(){
+        super.onResume()
+        mAuth!!.addAuthStateListener(authStateListener)
+    }
+    override fun onPause(){
+        super.onPause()
+        mAuth!!.removeAuthStateListener(authStateListener)
+    }
+    private fun checkUser(){
+        authStateListener = FirebaseAuth.AuthStateListener { auth ->
+            if(auth.currentUser != null){
+                val intent = Intent(this@RegistrarseActivity, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
 
 }
