@@ -5,170 +5,212 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-<LinearLayout
-    android:id="@+id/llnav"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="5dp"
-    android:orientation="horizontal"
-    android:paddingTop="25dp">
-
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="Registrarse"
-        android:paddingLeft="2dp"
-        android:textColor="@color/orange"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-</LinearLayout>
-
-<RelativeLayout
-    android:id="@+id/rluser"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_above="@+id/rlcontra"
-    android:padding="5dp">
-
-    <TextView
-        android:id="@+id/my_hint_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/etUsuarioR"
-        android:padding="5dp"
-        android:text="Usuario"
-        android:textColor="@color/orange"
-        android:textSize="14sp" />
-
-    <EditText
-        android:id="@+id/etUsuarioR"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-      />
+        android:layout_height="match_parent"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fondo"
+        android:alpha="0.1"
 
-</RelativeLayout>
 
-
-<RelativeLayout
-    android:id="@+id/rlrcontra"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_marginBottom="386dp"
-    android:paddingLeft="2dp">
-
-    <TextView
-        android:id="@+id/my_hint_text3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="Repetir contraseña"
-        android:textColor="@color/orange"
-        android:textSize="14sp" />
-
-    <EditText
-        android:id="@+id/etRepetirContraR"
-        android:inputType="textPassword"
-        android:layout_width="match_parent"
-        android:layout_height="62dp"/>
-
-</RelativeLayout>
-
-<RelativeLayout
-    android:id="@+id/rlcontra"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_marginBottom="458dp"
-    android:paddingLeft="2dp">
-
-    <TextView
-        android:id="@+id/my_hint_text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/etContraR"
-        android:padding="5dp"
-        android:text="Contraseña"
-        android:textColor="@color/orange"
-        android:textSize="14sp"
         />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
-
-    <EditText
-        android:id="@+id/etContraR"
+    <RelativeLayout
+        android:id="@+id/rluser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:inputType="textPassword"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="553dp"
+        android:padding="5dp">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/my_hint_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/etUsuarioR"
+            android:padding="1dp"
+            android:text="Correo"
+            android:textColor="@color/orange"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etUsuarioR"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20sp"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/bkg_text"
+            android:backgroundTint="#79FBD3C0" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlrcontra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="301dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="355dp"
+        android:paddingLeft="2dp">
+
+        <TextView
+            android:id="@+id/my_hint_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:text="Repetir contraseña"
+            android:textColor="@color/orange"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etRepetirContraR"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:paddingRight="8dp"
+            android:paddingLeft="5dp"
+            android:drawableEnd="@drawable/visibility_off"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/bkg_text"
+            android:backgroundTint="#79FBD3C0"
+            android:inputType="textPassword" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlcontra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="198dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="458dp"
+        android:paddingLeft="2dp">
+
+        <TextView
+            android:id="@+id/my_hint_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/etContraR"
+            android:padding="1dp"
+            android:text="Contraseña"
+            android:textColor="@color/orange"
+            android:textSize="14sp" />
+
+
+        <EditText
+            android:id="@+id/etContraR"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:paddingRight="8dp"
+            android:paddingLeft="5dp"
+            android:drawableEnd="@drawable/visibility_off"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/bkg_text"
+            android:backgroundTint="#79FBD3C0"
+            android:inputType="textPassword" />
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="59dp"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="170dp"
-        android:layout_marginEnd="182dp"
-        android:layout_marginBottom="334dp"
-        android:visibility="gone" />
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="365dp"
+        android:layout_marginEnd="173dp"
+        android:layout_marginBottom="328dp"
+        android:visibility="gone"
 
-    <Button
-        android:id="@+id/RegistrarseButton"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="277dp"
-        android:layout_toStartOf="@+id/IniciarSesionScreen"
-        android:padding="16dp"
-        android:text="Registrarse" />
+        android:layout_marginTop="411dp"
+        android:layout_marginBottom="258dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/IniciarSesionScreen"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="277dp"
-        android:padding="16dp"
+        <Button
+            android:id="@+id/IniciarSesionScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/white"
+            android:padding="10dp"
+            android:text="Iniciar sesión"
+            android:textColor="@color/black"
+            app:strokeColor="#C56C50"
+            app:strokeWidth="1.5dp" />
 
-        android:text="Iniciar sesión" />
+        <Button
+            android:id="@+id/RegistrarseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Registrarse" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/googlebtn"
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="132dp"
-        android:layout_marginBottom="186dp"
-        android:text="Google"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/googlelogo"
-        app:iconGravity="textStart"
-        app:iconPadding="10dp"
-        app:iconSize="40dp"
-        app:iconTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_centerInParent="true"
+        android:layout_marginTop="514dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginBottom="157dp"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/googlebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/googlelogo"
+            app:iconGravity="textStart"
+            app:iconPadding="5dp"
+            app:iconSize="40dp"
+            app:iconTint="@color/black" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

@@ -8,13 +8,17 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import android.widget.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -22,6 +26,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.GoogleAuthProvider
 
 class RegistrarseActivity : AppCompatActivity() {
@@ -58,13 +64,17 @@ class RegistrarseActivity : AppCompatActivity() {
 
         // Initialize Firebase
         FirebaseApp.initializeApp(this)
-
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        title = "Registrarse"
         mAuth= FirebaseAuth.getInstance()
         this.checkUser()
         initializeUI()
 
 
         signup!!.setOnClickListener { registerNewUser() }
+
         signinScreen!!.setOnClickListener {  val intent = Intent(this@RegistrarseActivity, IniciarSesionActivity::class.java)
             startActivity(intent)
 
@@ -73,7 +83,59 @@ class RegistrarseActivity : AppCompatActivity() {
 
             registerGoogle()
         }
+        //ocultar y mostrar contra para passwordTV
+
+        passwordTV?.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val drawableWidth = passwordTV?.compoundDrawablesRelative?.get(2)?.bounds?.width()
+                if (event.rawX >= passwordTV!!.right - passwordTV?.paddingRight!! - (drawableWidth ?: 0)) {
+                    // Si el usuario hizo clic en el icono de visibilidad
+                    if (passwordTV?.transformationMethod == PasswordTransformationMethod.getInstance()) {
+                        // Si la contraseña está oculta, mostrarla
+                        passwordTV?.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                        passwordTV?.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this, R.drawable.visibility), null)
+                    } else {
+                        // Si la contraseña está visible, ocultarla
+                        passwordTV?.transformationMethod = PasswordTransformationMethod.getInstance()
+                        passwordTV?.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this, R.drawable.visibility_off), null)
+                    }
+                    // Mover el cursor al final del texto para que siga visible después de ocultar/mostrar
+                    passwordTV?.text?.let { passwordTV?.setSelection(it.length) }
+                    return@setOnTouchListener true
+                }
+            }
+            return@setOnTouchListener false
+        }
+        //
+        //ocultar y mostrar contra para passwordTVR
+        passwordTVR?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.visibility_off, 0)
+        passwordTVR?.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                passwordTVR?.let {
+                    val touchableArea = it.width - it.compoundPaddingEnd
+                    if (event.rawX >= touchableArea) {
+                        if (it.transformationMethod == PasswordTransformationMethod.getInstance()) {
+                            // Si la contraseña está oculta, mostrarla
+                            passwordTVR?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.visibility, 0)
+                            it.transformationMethod = HideReturnsTransformationMethod.getInstance()
+
+                        } else {
+                            // Si la contraseña está visible, ocultarla
+                            it.transformationMethod = PasswordTransformationMethod.getInstance()
+                            passwordTVR?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.visibility_off, 0)
+                        }
+                        // Mover el cursor al final del texto para que siga visible después de ocultar/mostrar
+                        it.setSelection(it.text.length)
+                        return@setOnTouchListener true
+                    }
+                }
+
+
+            }
+            false
+        }
     }
+
     private fun registerGoogle(){
 
 
@@ -114,54 +176,67 @@ class RegistrarseActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun registerNewUser(){
-        progressBar!!.visibility= View.VISIBLE
+
         val email:String
         val psswd:String
         val psswdR:String
         email=emailTV!!.text.toString()
         psswd=passwordTV!!.text.toString()
         psswdR=passwordTVR!!.text.toString()
-        if(TextUtils.isEmpty(email)){
-            emailTV?.error = "Ingrese su correo electrónico"
-            emailTV?.requestFocus()
 
-            return
-        }
-        if(TextUtils.isEmpty(psswd)){
-            passwordTV?.error = "Ingrese una contraseña"
-            passwordTV?.requestFocus()
-            return
-        }
-        if(TextUtils.isEmpty(psswdR)){
-            passwordTVR?.error = "Ingrese el valor de repetir contraseña"
+        if (email.isEmpty() && psswd.isEmpty() && psswdR.isEmpty()) {
+            showEmptyFieldError(emailTV, "su correo electrónico")
+            showEmptyFieldError(passwordTV, "una contraseña")
+            showEmptyFieldError(passwordTVR, "el valor de repetir contraseña")
+        } else if (email.isEmpty() && psswd.isEmpty()) {
+            showEmptyFieldError(emailTV, "su correo electrónico")
+            showEmptyFieldError(passwordTV, "una contraseña")
+        } else if (email.isEmpty() && psswdR.isEmpty()) {
+            showEmptyFieldError(emailTV, "su correo electrónico")
+            showEmptyFieldError(passwordTVR, "el valor de repetir contraseña")
+        } else if (psswd.isEmpty() && psswdR.isEmpty()) {
+            showEmptyFieldError(passwordTV, "una contraseña")
+            showEmptyFieldError(passwordTVR, "el valor de repetir contraseña")
+        } else if (email.isEmpty()) {
+            showEmptyFieldError(emailTV, "su correo electrónico")
+        } else if (psswd.isEmpty()) {
+            showEmptyFieldError(passwordTV, "una contraseña")
+        } else if (psswdR.isEmpty()) {
+            showEmptyFieldError(passwordTVR, "el valor de repetir contraseña")
+        } else if (psswd != psswdR) {
+            passwordTVR?.error = "Las contraseñas no coinciden"
+            passwordTV?.error = "Las contraseñas no coinciden"
             passwordTVR?.requestFocus()
+            passwordTV?.requestFocus()
+        } else {
+
+            progressBar!!.visibility= View.VISIBLE
+            mAuth!!.createUserWithEmailAndPassword(email, psswd).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+
+                    Toast.makeText(this, "Registro satisfactorio", Toast.LENGTH_LONG).show()
+                    Log.d(ContentValues.TAG, "User locale updated successfully")
+                    progressBar!!.setVisibility(View.GONE)
+                    val intent = Intent(this@RegistrarseActivity, IniciarSesionActivity::class.java)
+                    startActivity(intent)
+
+                } else {
+                    Toast.makeText(this, "El registro falló, intente más tarde", Toast.LENGTH_LONG)
+                        .show()
+                    Log.e(ContentValues.TAG, "Error updating user locale: ${task.exception}")
+                    progressBar!!.setVisibility(View.GONE)
 
 
-            return
-        }
-
-        mAuth!!.createUserWithEmailAndPassword(email, psswd).addOnCompleteListener {
-                task ->
-            if(task.isSuccessful){
-                Toast.makeText(  this, "Registro satisfactorio", Toast.LENGTH_LONG).show()
-                Log.d(ContentValues.TAG, "User locale updated successfully")
-                progressBar!!.setVisibility(View.GONE)
-                val intent = Intent(this@RegistrarseActivity, IniciarSesionActivity::class.java)
-                startActivity(intent)
-
+                }
             }
-            else{
-                Toast.makeText(  this, "El registro falló, intente más tarde", Toast.LENGTH_LONG).show()
-                Log.e(ContentValues.TAG, "Error updating user locale: ${task.exception}")
-                progressBar!!.setVisibility(View.GONE)
-
-
-            }
         }
-
     }
-
+    fun showEmptyFieldError(field: EditText?, fieldName: String) {
+        field?.error = "Ingrese $fieldName"
+        field?.requestFocus()
+    }
     private fun initializeUI() {
         emailTV = findViewById(R.id.etUsuarioR)
         passwordTV = findViewById(R.id.etContraR)
