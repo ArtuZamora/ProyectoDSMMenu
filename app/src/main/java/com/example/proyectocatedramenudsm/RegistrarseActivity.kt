@@ -27,7 +27,6 @@ import com.google.android.material.button.MaterialButton
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import com.google.firebase.auth.GoogleAuthProvider
 
 class RegistrarseActivity : AppCompatActivity() {
