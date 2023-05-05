@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -11,6 +14,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 
@@ -44,29 +48,52 @@ class IniciarSesionActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        passwordTV?.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val drawableWidth = passwordTV?.compoundDrawablesRelative?.get(2)?.bounds?.width()
+                if (event.rawX >= passwordTV!!.right - passwordTV?.paddingRight!! - (drawableWidth ?: 0)) {
+                    // Si el usuario hizo clic en el icono de visibilidad
+                    if (passwordTV?.transformationMethod == PasswordTransformationMethod.getInstance()) {
+                        // Si la contraseña está oculta, mostrarla
+                        passwordTV?.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                        passwordTV?.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this, R.drawable.visibility), null)
+                    } else {
+                        // Si la contraseña está visible, ocultarla
+                        passwordTV?.transformationMethod = PasswordTransformationMethod.getInstance()
+                        passwordTV?.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this, R.drawable.visibility_off), null)
+                    }
+                    // Mover el cursor al final del texto para que siga visible después de ocultar/mostrar
+                    passwordTV?.text?.let { passwordTV?.setSelection(it.length) }
+                    return@setOnTouchListener true
+                }
+            }
+            return@setOnTouchListener false
+        }
+
+
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
     private fun loginUserAccount(){
-        progressBar?.setVisibility(View.VISIBLE)
+
         val email:String
         val psswd:String
         email=emailTV?.getText().toString()
         psswd=passwordTV?.getText().toString()
-        if(TextUtils.isEmpty(email)){
-            emailTV?.error = "Ingrese su correo electrónico"
-            emailTV?.requestFocus()
-
-            return
+        if (email.isEmpty() && psswd.isEmpty()) {
+            showEmptyFieldError(emailTV, "su correo electrónico")
+            showEmptyFieldError(passwordTV, "una contraseña")
         }
-        if(TextUtils.isEmpty(psswd)){
-            passwordTV?.error = "Ingrese una contraseña"
-
-            passwordTV?.requestFocus()
-            return
+        else if (email.isEmpty()) {
+            showEmptyFieldError(emailTV, "su correo electrónico")
+        } else if (psswd.isEmpty()) {
+            showEmptyFieldError(passwordTV, "una contraseña")
         }
+        else{
+            progressBar!!.visibility= View.VISIBLE
         mAuth?.signInWithEmailAndPassword(email,psswd)?.addOnCompleteListener {
                 task ->
             if(task.isSuccessful){
@@ -83,7 +110,12 @@ class IniciarSesionActivity : AppCompatActivity() {
                 progressBar?.setVisibility(View.GONE)
             }
         }
+        }
 
+    }
+    fun showEmptyFieldError(field: EditText?, fieldName: String) {
+        field?.error = "Ingrese $fieldName"
+        field?.requestFocus()
     }
     private fun initializeUI() {
         emailTV = findViewById<EditText>(R.id.etUsuario)
@@ -94,4 +126,5 @@ class IniciarSesionActivity : AppCompatActivity() {
 
 
     }
+
 }

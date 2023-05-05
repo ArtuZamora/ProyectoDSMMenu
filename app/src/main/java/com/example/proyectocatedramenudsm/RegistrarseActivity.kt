@@ -86,7 +86,7 @@ class RegistrarseActivity : AppCompatActivity() {
             return@setOnTouchListener false
         }
         //
-        //ocultar y mostrar contra para passwordTV
+        //ocultar y mostrar contra para passwordTVR
         passwordTVR?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.visibility_off, 0)
         passwordTVR?.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {

@@ -56,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="20sp"
+            android:inputType="textEmailAddress"
             android:background="@drawable/bkg_text"
             android:backgroundTint="#79FBD3C0" />
 
@@ -68,7 +69,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="15dp"
-
         android:layout_marginTop="301dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="355dp"
@@ -137,73 +137,80 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="59dp"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="177dp"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="365dp"
+        android:layout_marginEnd="173dp"
+        android:layout_marginBottom="328dp"
         android:visibility="gone"
-        android:layout_marginTop="379dp"
-        android:layout_marginEnd="175dp"
-        android:layout_marginBottom="304dp" />
 
-    <Button
-        android:id="@+id/IniciarSesionScreen"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="411dp"
+        android:layout_marginBottom="258dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/IniciarSesionScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/white"
+            android:padding="10dp"
+            android:text="Iniciar sesión"
+            android:textColor="@color/black"
+            app:strokeColor="#C56C50"
+            app:strokeWidth="1.5dp" />
+
+        <Button
+            android:id="@+id/RegistrarseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Registrarse" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="433dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="238dp"
-        android:backgroundTint="@color/white"
-        android:padding="16dp"
-        android:text="Iniciar sesión"
-        android:textColor="@color/black"
-        app:strokeColor="#C56C50"
-        app:strokeWidth="1.5dp" />
+        android:layout_centerInParent="true"
+        android:layout_marginTop="514dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginBottom="157dp"
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
-    <Button
-        android:id="@+id/RegistrarseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="433dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="238dp"
 
-        android:padding="16dp"
-        android:text="Registrarse" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/googlebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/googlelogo"
+            app:iconGravity="textStart"
+            app:iconPadding="5dp"
+            app:iconSize="40dp"
+            app:iconTint="@color/black" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/googlebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="505dp"
-        android:layout_marginEnd="131dp"
-        android:layout_marginBottom="167dp"
-        android:text="Google"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/googlelogo"
-        app:iconGravity="textStart"
-        app:iconPadding="10dp"
-        app:iconSize="40dp"
-        app:iconTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
 
 
 </RelativeLayout>
