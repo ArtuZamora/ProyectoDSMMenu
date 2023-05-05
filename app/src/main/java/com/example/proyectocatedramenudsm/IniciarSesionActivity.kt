@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 
@@ -17,7 +18,6 @@ class IniciarSesionActivity : AppCompatActivity() {
     private var emailTV: EditText? = null
     private var passwordTV: EditText? = null
     private var loginBtn: Button? = null
-    private var backBtn: Button? = null
     private var recoverBtn: TextView? = null
     private var progressBar: ProgressBar? = null
     private var mAuth: FirebaseAuth? = null
@@ -29,21 +29,25 @@ class IniciarSesionActivity : AppCompatActivity() {
 
         // Initialize Firebase
         FirebaseApp.initializeApp(this)
-
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title = "Iniciar sesión"
         mAuth = FirebaseAuth.getInstance()
         initializeUI()
         loginBtn!!.setOnClickListener{
             loginUserAccount()
         }
-        backBtn?.setOnClickListener {
-            val intent = Intent(this@IniciarSesionActivity, RegistrarseActivity::class.java)
-            startActivity(intent)
-        }
+
         recoverBtn!!.setOnClickListener {
             val intent = Intent(this@IniciarSesionActivity, RecuperarcontraActivity::class.java)
             startActivity(intent)
         }
 
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
     private fun loginUserAccount(){
         progressBar?.setVisibility(View.VISIBLE)
@@ -87,7 +91,7 @@ class IniciarSesionActivity : AppCompatActivity() {
         loginBtn = findViewById<Button>(R.id.btnIniciarSesion)
         progressBar = findViewById<ProgressBar>(R.id.progressBar)
         recoverBtn=findViewById(R.id.recuperarContra)
-        backBtn=findViewById(R.id.backButton)
+
 
     }
 }

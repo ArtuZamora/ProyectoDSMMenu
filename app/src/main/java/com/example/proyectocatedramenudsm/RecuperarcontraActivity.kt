@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -17,21 +18,22 @@ class RecuperarcontraActivity : AppCompatActivity() {
     private var btnEnviarCorreo: Button? = null
     private var emailTV: EditText? = null
     private var progressBar: ProgressBar? = null
-    private var backBtn: Button? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide()
         setContentView(R.layout.activity_recuperarcontra)
 
         // Inicializar FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title = "Recuperar contraseña"
         initializeUI()
 
-        backBtn?.setOnClickListener {
-            val intent = Intent(this@RecuperarcontraActivity, IniciarSesionActivity::class.java)
-            startActivity(intent)
-        }
+
         btnEnviarCorreo?.setOnClickListener {
             val email = emailTV?.text.toString().trim()
 
@@ -52,10 +54,14 @@ class RecuperarcontraActivity : AppCompatActivity() {
                 }
         }
     }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
     private fun initializeUI() {
         emailTV=findViewById(R.id.etUsuarioC)
         btnEnviarCorreo = findViewById(R.id.btnEnviarCorreo)
         progressBar = findViewById(R.id.progressBar)
-        backBtn=findViewById(R.id.backButton)
+
     }
 }

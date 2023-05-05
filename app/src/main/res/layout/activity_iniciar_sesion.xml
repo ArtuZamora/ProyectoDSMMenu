@@ -2,41 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <LinearLayout
-        android:id="@+id/llnav"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        android:paddingTop="5dp">
+        android:layout_height="match_parent"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fondo"
+        android:alpha="0.1"
 
+        />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="40dp"
-            android:layout_height="38dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/arrow_back"
-            android:layout_marginEnd="8dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@color/white" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:text="Iniciar sesión"
-            android:textColor="@color/orange"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
 
 
     <RelativeLayout
@@ -52,17 +42,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@id/etUsuario"
-            android:padding="5dp"
-            android:text="Usuario"
+            android:padding="1dp"
+            android:text="Correo"
+            android:textStyle="bold"
             android:textColor="@color/orange"
-            android:textSize="14sp" />
+            android:textSize="15sp"/>
 
         <EditText
             android:id="@+id/etUsuario"
-            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"/>
+            android:layout_height="60dp"
+            android:layout_marginTop="20sp"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:backgroundTint="#79FBD3C0"
+            android:background="@drawable/bkg_text"
+          />
 
     </RelativeLayout>
 
@@ -94,17 +89,19 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@id/etContra"
             android:layout_alignParentTop="true"
-            android:padding="5dp"
+            android:padding="1dp"
             android:text="Contraseña"
+            android:textStyle="bold"
             android:textColor="@color/orange"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/etContra"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
-                android:textSize="15sp"
+            android:layout_height="60dp"
+            android:backgroundTint="#79FBD3C0"
+            android:background="@drawable/bkg_text"
             android:inputType="textPassword" />
 
     </RelativeLayout>
