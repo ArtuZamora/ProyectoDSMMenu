@@ -4,12 +4,14 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.proyectocatedramenudsm.R
-import com.example.proyectocatedramenudsm.modelos.Producto
+import com.example.proyectocatedramenudsm.modelos.Categoria
 
-class AdaptadorProducto(private val context: Activity, var productos: List<Producto>) :
-    ArrayAdapter<Producto?>(context, R.layout.item_categoria, productos) {
+class AdaptadorCategoria(private val context: Activity, var categorias: List<Categoria>) :
+    ArrayAdapter<Categoria?>(context, R.layout.item_categoria, categorias) {
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         // Método invocado tantas veces como elementos tenga la coleccion personas
         // para formar a cada item que se visualizara en la lista personalizada
@@ -20,12 +22,13 @@ class AdaptadorProducto(private val context: Activity, var productos: List<Produ
         // y no sera necesario hacer el proceso de "inflado" que conlleva tiempo y
         // desgaste de bateria del dispositivo
         rowview = view ?: layoutInflater.inflate(R.layout.item_categoria, null)
-        val tvCategoria = rowview!!.findViewById<TextView>(R.id.descripcion_categoria)
-//        val tvDescripcion = rowview.findViewById<TextView>(R.id.imagen_categoria)
-        tvCategoria.text = "Categoria : " + productos[position].categoria
-//        tvDescripcion.text = "Descripcion : " + productos[position].descripcion
-        println(tvCategoria)
-//        println(tvDescripcion)
+        val ivCategoria = rowview!!.findViewById<ImageView>(R.id.imagen_categoria)
+        val tvDescripcion = rowview.findViewById<TextView>(R.id.descripcion_categoria)
+        tvDescripcion.text = categorias[position].key
+        Glide.with(context)
+            .load(categorias[position].imagen)
+            .into(ivCategoria)
+
         return rowview
     }
 }

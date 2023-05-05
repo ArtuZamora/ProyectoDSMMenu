@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <GridView
-            android:id="@+id/ListaProductos"
+            android:id="@+id/ListaCategorias"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_row="0"

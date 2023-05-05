@@ -2,10 +2,13 @@ package com.example.proyectocatedramenudsm
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.GridView
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.proyectocatedramenudsm.adaptadores.AdaptadorCategoria
 import com.example.proyectocatedramenudsm.adaptadores.AdaptadorProducto
+import com.example.proyectocatedramenudsm.modelos.Categoria
 import com.example.proyectocatedramenudsm.modelos.Producto
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -14,12 +17,13 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 
 class MainActivity : AppCompatActivity() {
 
-    var consultaOrdenada: Query = refProductos.orderByChild("Descripcion")
-    var productos: MutableList<Producto>? = null
-    var listaProductos: GridView? = null
+    var consultaOrdenada: Query = refCategorias.orderByKey()
+    var categorias: MutableList<Categoria>? = null
+    var listaCategorias: GridView? = null
 
     private lateinit var cerrarSesionBtn: ImageView
     private lateinit var recordatorioBtn: ImageView
@@ -47,29 +51,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun inicializar() {
-        listaProductos = findViewById<GridView>(R.id.ListaProductos)
+        listaCategorias = findViewById<GridView>(R.id.ListaCategorias)
 
-        productos = ArrayList<Producto>()
+        categorias = ArrayList<Categoria>()
 
-        // Cambiarlo refProductos a consultaOrdenada para ordenar lista
+        // Cambiarlo refCategorias a consultaOrdenada para ordenar lista
         consultaOrdenada.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Procedimiento que se ejecuta cuando hubo algun cambio
                 // en la base de datos
                 // Se actualiza la coleccion de personas
-                productos!!.removeAll(productos!!)
+                categorias!!.removeAll(categorias!!)
                 for (dato in dataSnapshot.getChildren()) {
-                    val producto: Producto? = dato.getValue(Producto::class.java)
-                    producto?.key(dato.key)
-                    if (producto != null) {
-                        productos!!.add(producto)
+                    val categoria: Categoria? = dato.getValue(Categoria::class.java)
+                    Log.i("Platos", "${categoria!!.platos}")
+
+                    categoria?.key(dato.key)
+                    if (categoria != null) {
+                        categorias!!.add(categoria)
                     }
                 }
-                val adapter = AdaptadorProducto(
+                val adapter = AdaptadorCategoria(
                     this@MainActivity,
-                    productos as ArrayList<Producto>
+                    categorias as ArrayList<Categoria>
                 )
-                listaProductos!!.adapter = adapter
+                listaCategorias!!.adapter = adapter
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
@@ -84,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     }
     companion object {
         var database: FirebaseDatabase = FirebaseDatabase.getInstance()
-        var refProductos: DatabaseReference = database.getReference("Menu")
+        var refCategorias: DatabaseReference = database.getReference("")
     }
 
 }
