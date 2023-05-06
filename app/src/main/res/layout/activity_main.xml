@@ -61,14 +61,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_alarm" />
 
-    <ImageView
-        android:id="@+id/buscarBtn"
-        android:layout_width="49dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        app:tint="#FFFFFF"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_search" />
+    <SearchView
+        android:id="@+id/buscarSV"
+        android:layout_width="287dp"
+        android:layout_height="41dp"
+        android:layout_margin="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:iconifiedByDefault="false"
+        android:padding="4dp"
+        android:queryHint="Buscar categoría"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

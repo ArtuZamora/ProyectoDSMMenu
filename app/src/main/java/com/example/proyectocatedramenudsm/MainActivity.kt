@@ -3,8 +3,10 @@ package com.example.proyectocatedramenudsm
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Filterable
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.proyectocatedramenudsm.adaptadores.AdaptadorCategoria
 import com.example.proyectocatedramenudsm.adaptadores.AdaptadorProducto
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var cerrarSesionBtn: ImageView
     private lateinit var recordatorioBtn: ImageView
-    private lateinit var buscarBtn: ImageView
+    private lateinit var buscarSV: SearchView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,12 +83,24 @@ class MainActivity : AppCompatActivity() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
+        buscarSV.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (listaCategorias?.adapter is Filterable) {
+                    (listaCategorias!!.adapter as Filterable).filter.filter(newText)
+                }
+                return true
+            }
+        })
     }
 
     private fun inicializarUI(){
         cerrarSesionBtn = findViewById(R.id.cerrarSesionBtn)
         recordatorioBtn = findViewById(R.id.usuarioBtn)
-        buscarBtn = findViewById(R.id.buscarBtn)
+        buscarSV = findViewById(R.id.buscarSV)
     }
     companion object {
         var database: FirebaseDatabase = FirebaseDatabase.getInstance()
