@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fondo"
+        android:alpha="0.1"
+
+        />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/rluser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rlcontra"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="553dp"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/my_hint_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/etUsuario"
+            android:padding="1dp"
+            android:text="Correo"
+            android:textColor="@color/orange"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/etUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20sp"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/bkg_text"
+            android:backgroundTint="#79FBD3C0"
+          />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/recuperarContra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="305dp"
+        android:layout_marginEnd="191dp"
+        android:layout_marginBottom="41dp"
+        android:clickable="true"
+        android:cursorVisible="true"
+        android:text="¿Olvidó su contraseña?"
+        android:textColor="@color/orange" />
+
+    <RelativeLayout
+        android:id="@+id/rlcontra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="198dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="458dp"
+        android:paddingLeft="2dp">
+
+        <TextView
+            android:id="@+id/my_hint_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/etContra"
+            android:layout_alignParentTop="true"
+            android:padding="1dp"
+            android:text="Contraseña"
+            android:textColor="@color/orange"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etContra"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20sp"
+            android:paddingRight="8dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/bkg_text"
+            android:backgroundTint="#79FBD3C0"
+            android:drawableEnd="@drawable/visibility_off"
+            android:inputType="textPassword" />
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="189dp"
+        android:layout_marginTop="276dp"
+        android:layout_marginEnd="174dp"
+        android:layout_marginBottom="417dp"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/btnIniciarSesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="362dp"
+        android:padding="10dp"
+        android:text="Iniciar sesión" />
+
+
+</RelativeLayout>
