@@ -1,6 +1,7 @@
 package com.example.proyectocatedramenudsm
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,7 +10,6 @@ import android.widget.Filterable
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
 import com.example.proyectocatedramenudsm.adaptadores.AdaptadorCategoria
 import com.example.proyectocatedramenudsm.adaptadores.AdaptadorProducto
 import com.example.proyectocatedramenudsm.modelos.Categoria
@@ -21,14 +21,13 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import java.io.Serializable
 
-class MainActivity : AppCompatActivity() {
+class ProductoActivity : AppCompatActivity() {
 
-    var consultaOrdenada: Query = refCategorias.orderByKey()
-    var categorias: MutableList<Categoria>? = null
-    var listaCategorias: GridView? = null
+    private var key2 = ""
+    var productos: MutableList<Producto>? = null
+    var listaProductos: GridView? = null
 
     private lateinit var cerrarSesionBtn: ImageView
     private lateinit var recordatorioBtn: ImageView
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_producto)
         inicializarUI()
         inicializar()
 
@@ -56,40 +55,46 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun inicializar() {
-        listaCategorias = findViewById<GridView>(R.id.ListaCategorias)
+        listaProductos = findViewById<GridView>(R.id.ListaProductos)
 
-        categorias = ArrayList<Categoria>()
+        productos = ArrayList<Producto>()
 
-        listaCategorias!!.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+        val datos: Bundle? = intent.getExtras()
+        if (datos != null) {
+            key2 = datos.getString("categoria").toString()
+        }
+        var refCategorias: DatabaseReference = database.getReference("$key2/Platos")
+        var consultaOrdenada: Query = refCategorias.orderByChild("Carne Asada")
+        /*listaProductos!!.setOnItemClickListener(object : AdapterView.OnItemClickListener {
             override fun onItemClick(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
                 val intent = Intent(getBaseContext(), ProductoActivity::class.java)
-                println("esto mando en categoria: ${categorias!![i].key}")
                 intent.putExtra("categoria", categorias!![i].key)
                 startActivity(intent)
             }
-        })
+        })*/
         // Cambiarlo refCategorias a consultaOrdenada para ordenar lista
         consultaOrdenada.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Procedimiento que se ejecuta cuando hubo algun cambio
                 // en la base de datos
                 // Se actualiza la coleccion de personas
-                categorias!!.removeAll(categorias!!)
+                productos!!.removeAll(productos!!)
                 for (dato in dataSnapshot.getChildren()) {
-                    val categoria: Categoria? = dato.getValue(Categoria::class.java)
-                    println("Aqui están los platos: " + categoria!!.platos)
-                    Log.i("Platos", "${categoria!!.platos}")
+                    println("esto trae dato "+dato.getValue(Producto::class.java))
+                    val producto: Producto? = dato.getValue(Producto::class.java)
+                    println("Aqui están los platos del activity: $producto")
+                    Log.i("Platos", "$producto")
 
-                    categoria?.key(dato.key)
-                    if (categoria != null) {
-                        categorias!!.add(categoria)
+                    producto?.key(dato.key)
+                    if (producto != null) {
+                        productos!!.add(producto)
                     }
                 }
-                val adapter = AdaptadorCategoria(
-                    this@MainActivity,
-                    categorias as ArrayList<Categoria>
+                val adapter = AdaptadorProducto(
+                    this@ProductoActivity,
+                    productos as ArrayList<Producto>
                 )
-                listaCategorias!!.adapter = adapter
+                listaProductos!!.adapter = adapter
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
@@ -101,8 +106,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (listaCategorias?.adapter is Filterable) {
-                    (listaCategorias!!.adapter as Filterable).filter.filter(newText)
+                if (listaProductos?.adapter is Filterable) {
+                    (listaProductos!!.adapter as Filterable).filter.filter(newText)
                 }
                 return true
             }
@@ -116,7 +121,6 @@ class MainActivity : AppCompatActivity() {
     }
     companion object {
         var database: FirebaseDatabase = FirebaseDatabase.getInstance()
-        var refCategorias: DatabaseReference = database.getReference("")
     }
 
 }
