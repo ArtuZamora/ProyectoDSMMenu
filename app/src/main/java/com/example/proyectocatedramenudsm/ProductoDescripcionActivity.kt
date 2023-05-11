@@ -25,6 +25,8 @@ import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import org.w3c.dom.Text
 import java.io.Serializable
+import java.text.NumberFormat
+import java.util.Locale
 
 class ProductoDescripcionActivity : AppCompatActivity() {
 
@@ -41,6 +43,8 @@ class ProductoDescripcionActivity : AppCompatActivity() {
     private var tvCategoria: TextView? = null
     private var tvDescripcion: TextView? = null
     private var tvPrecio: TextView?= null
+
+    private val currencyFormatter: NumberFormat = NumberFormat.getCurrencyInstance(Locale.US)
 
     private lateinit var cerrarSesionBtn: ImageView
     private lateinit var recordatorioBtn: ImageView
@@ -86,7 +90,7 @@ class ProductoDescripcionActivity : AppCompatActivity() {
         if (datos != null) {
             Log.i("nombreA", "${datos.getString("nombre").toString()}")
             Log.i("imagenA", "${datos.getString("imagen").toString()}")
-            Log.i("precioA", "${datos.getString("precio").toString()}")
+            Log.i("precioA", "${datos.getDouble("precio").toString()}")
         }
         if (datos != null) {
             Glide.with(this@ProductoDescripcionActivity)
@@ -102,71 +106,16 @@ class ProductoDescripcionActivity : AppCompatActivity() {
             tvDescripcion.text = datos.getString("descripcion").toString()
         }
         if (datos != null) {
-            tvPrecio.text = "$" + datos.getString("precio").toString()
+            tvPrecio.text =  currencyFormatter.format(datos.getString("precio").toString().toDoubleOrNull())
         }
-
-        /*val datos: Bundle? = intent.getExtras()
-        if (datos != null) {
-            key2 = datos.getString("categoria").toString()
-        }
-        var refCategorias: DatabaseReference = database.getReference("$key2/Platos")
-        var consultaOrdenada: Query = refCategorias.orderByChild("Carne Asada")
-        listaProductos!!.setOnItemClickListener(object : AdapterView.OnItemClickListener {
-            override fun onItemClick(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
-                val intent = Intent(getBaseContext(), ProductoDescripcionActivity::class.java)
-                //println("esto mando en categoria: ${categorias!![i].key}")
-                intent.putExtra("nombre", productos!![i].key)
-                intent.putExtra("categoria", productos!![i].categoria)
-                intent.putExtra("descripcion", productos!![i].descripcion)
-                intent.putExtra("precio", productos!![i].precio)
-                startActivity(intent)
-            }
-        })*/
-        // Cambiarlo refCategorias a consultaOrdenada para ordenar lista
-        /*consultaOrdenada.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Procedimiento que se ejecuta cuando hubo algun cambio
-                // en la base de datos
-                // Se actualiza la coleccion de personas
-                productos!!.removeAll(productos!!)
-                for (dato in dataSnapshot.getChildren()) {
-                    println("esto trae dato "+dato.getValue(Producto::class.java))
-                    val producto: Producto? = dato.getValue(Producto::class.java)
-                    println("Aqui están los platos del activity: $producto")
-                    Log.i("Platos", "$producto")
-
-                    producto?.key(dato.key)
-                    if (producto != null) {
-                        productos!!.add(producto)
-                    }
-                }
-                val adapter = AdaptadorProducto(
-                    this@ProductoActivity,
-                    productos as ArrayList<Producto>
-                )
-                listaProductos!!.adapter = adapter
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-
-        buscarSV.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (listaProductos?.adapter is Filterable) {
-                    (listaProductos!!.adapter as Filterable).filter.filter(newText)
-                }
-                return true
-            }
-        })*/
     }
 
     private fun inicializarUI() {
         cerrarSesionBtn = findViewById(R.id.cerrarSesionBtn)
         recordatorioBtn = findViewById(R.id.usuarioBtn)
         //buscarSV = findViewById(R.id.buscarSV)
+        findViewById<ImageView>(R.id.atrasBtn).setOnClickListener{
+            onBackPressed();
+        }
     }
 }

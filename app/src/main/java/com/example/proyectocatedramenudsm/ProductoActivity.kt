@@ -127,6 +127,9 @@ class ProductoActivity : AppCompatActivity() {
         cerrarSesionBtn = findViewById(R.id.cerrarSesionBtn)
         recordatorioBtn = findViewById(R.id.usuarioBtn)
         buscarSV = findViewById(R.id.buscarSV)
+        findViewById<ImageView>(R.id.atrasBtn).setOnClickListener{
+            onBackPressed();
+        }
     }
     companion object {
         var database: FirebaseDatabase = FirebaseDatabase.getInstance()
