@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ProyectoCatedraMenuDSM"
         tools:targetApi="31">
         <activity
+            android:name=".ProductoDescripcionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProductoActivity"
             android:exported="false" />
         <activity
